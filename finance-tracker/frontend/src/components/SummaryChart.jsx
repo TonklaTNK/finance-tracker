@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-function SummaryChart() {
+function getCssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+}
+
+function SummaryChart({ theme }) {
     const [summary, setSummary] = useState([])
 
     useEffect(() => {
@@ -12,16 +16,16 @@ function SummaryChart() {
     }, [])
 
     return (
-        <div className='bg-slate-800 rounded-xl p-4 mt-6'>
-            <h2 className='text-lg font-semibold text-slate-100 mb-4'>สรุปรายเดือน</h2>
+        <div className='bg-[var(--color-bg-card)] rounded-xl p-4 mt-6 border-t-3 border-teal-500 shadow-md transition-colors'>
+            <h2 className='text-lg font-semibold text-[var(--color-text-primary)] mb-4'>สรุปรายเดือน</h2>
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={summary}>
-                    <XAxis dataKey="month" tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                    <YAxis tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                    <XAxis dataKey="month" tick={{ fill: getCssVar('--color-text-muted'), fontSize: 12 }} />
+                    <YAxis tick={{ fill: getCssVar('--color-text-muted'), fontSize: 12 }} />
                     <Tooltip
-                        contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px' }}
-                        itemStyle={{ color: '#e2e8f0' }}
-                        labelStyle={{ color: '#94a3b8' }}
+                        contentStyle={{ backgroundColor: getCssVar('--color-tooltip-bg'), border: 'none', borderRadius: '8px' }}
+                        itemStyle={{ color: getCssVar('--color-text-secondary') }}
+                        labelStyle={{ color: getCssVar('--color-text-muted') }}
                     />
                     <Legend />
                     <Bar dataKey="income" name="รายรับ" fill="#10b981" radius={[4, 4, 0, 0]} />

@@ -9,6 +9,7 @@ import SummaryCard from './components/SummaryCard'
 import TransactionForm from './components/TransactionForm'
 import SummaryChart from './components/SummaryChart'
 import AccountBalance from './components/AccountBalance'
+import ThemeToggle from './components/ThemeToggle'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
   const [filterMonth, setFilterMonth] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark')
 
 
 
@@ -66,6 +68,11 @@ function App() {
         setLoading(false)
       })
   }
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+    document.documentElement.style.colorScheme = theme === 'dark' ? 'dark' : 'light'
+  }, [theme])
 
   useEffect(() => {
     fetch('http://localhost:8080/categories')
@@ -162,10 +169,13 @@ function App() {
   // )
 
   return (
-    <div className='min-h-screen bg-slate-900 text-white'>
+    <div className='min-h-screen bg-[var(--color-bg-page)] text-[var(--color-text-primary)] transition-colors'>
       <div className='max-w-5xl mx-auto px-4 py-6'>
 
-        <h1 className='text-2xl font-bold text-center mb-6'>Personal Finance Tracker</h1>
+        <div className='flex items-center justify-between mb-6'>
+          <h2 className='bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent'>Personal Finance Tracker</h2>
+          <ThemeToggle theme={theme} setTheme={setTheme} />
+        </div>
 
         {/* ===== Summary + Balance (เต็มจอ) ===== */}
         <SummaryCard transactions={transactions} />
@@ -175,8 +185,9 @@ function App() {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
 
           {/* ===== ซ้าย: ฟอร์ม ===== */}
-          <div className='bg-slate-800 rounded-xl p-4 h-fit'>
-            <h2 className='text-lg font-semibold text-slate-100 mb-4'>
+          <div className={`bg-[var(--color-bg-card)] rounded-xl p-4 h-fit transition-colors border-t-3 shadow-md
+    ${editingId === null ? 'border-emerald-500' : 'border-amber-500'}`}>
+            <h2 className='text-lg font-semibold text-[var(--color-text-primary)] mb-4'>
               {editingId === null ? 'เพิ่มรายการ' : 'แก้ไขรายการ'}
             </h2>
             <TransactionForm
@@ -191,25 +202,25 @@ function App() {
           </div>
 
           {/* ===== ขวา: filter + list ===== */}
-          <div>
+          <div className='bg-[var(--color-bg-card)] rounded-xl p-4 border-t-3 border-sky-500 shadow-md transition-colors'>
             {/* filter */}
-            <div className='flex gap-2 mb-4'>
+            <div className='flex gap-2 mb-4 '>
               <select value={filterType} onChange={(e) => setFilterType(e.target.value)}
-                className='flex-1 bg-slate-700 text-white text-sm rounded-lg px-3 py-2 outline-none'>
+                className='flex-1 w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500'>
                 <option value=''>ทั้งหมด</option>
                 <option value='income'>รายรับ</option>
                 <option value='expense'>รายจ่าย</option>
                 <option value='transfer'>รายการโอน</option>
               </select>
               <select value={filterAccount} onChange={(e) => setFilterAccount(e.target.value)}
-                className='flex-1 bg-slate-700 text-white text-sm rounded-lg px-3 py-2 outline-none'>
+                className='flex-1 w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500'>
                 <option value=''>ทั้งหมด</option>
                 {accounts.map((acc) => (
                   <option key={acc.id} value={acc.id}>{acc.account_name}</option>
                 ))}
               </select>
               <select value={filterMonth} onChange={(e) => setFilterMonth(e.target.value)}
-                className='flex-1 bg-slate-700 text-white text-sm rounded-lg px-3 py-2 outline-none'>
+                className='flex-1 w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-sky-500'>
                 <option value=''>เลือกเดือน</option>
                 {month.map((m) => (
                   <option key={m} value={m}>{m}</option>
@@ -219,7 +230,7 @@ function App() {
 
             {/* loading / error / empty / list */}
             {loading && (
-              <div className='flex items-center justify-center gap-2 py-8 text-slate-400'>
+              <div className='flex items-center justify-center gap-2 py-8 text-[var(--color-text-muted)]'>
                 <Loader className='animate-spin' size={20} />
                 <span>กำลังโหลด...</span>
               </div>
@@ -228,7 +239,7 @@ function App() {
               <div className='text-center py-8 text-rose-400'>{error}</div>
             )}
             {!loading && !error && transactions.length === 0 && (
-              <div className='text-center py-8 text-slate-400'>ยังไม่มีรายการ</div>
+              <div className='text-center py-8 text-[var(--color-text-muted)]'>ยังไม่มีรายการ</div>
             )}
             {!loading && !error && <TransactionList
               transactions={transactions}
@@ -247,7 +258,7 @@ function App() {
 
         {/* ===== กราฟ (เต็มจอ ล่างสุด) ===== */}
         <div className='mt-6'>
-          <SummaryChart />
+          <SummaryChart theme={theme} />
         </div>
 
       </div>

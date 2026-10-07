@@ -35,8 +35,8 @@ function TransactionList({ transactions, setTransactions, setEditingId, categori
     }
 
     return (
-        <div className='bg-slate-800 rounded-xl p-6 mt-6'>
-            <p className='text-slate-100 text-sm mb-4 text-left'>รายการล่าสุด</p>
+        <div className='p-1 mt-2'>
+            <p className='text-[var(--color-text-primary)] text-sm mb-4 text-left'>รายการล่าสุด</p>
 
             <div className='w-full text-sm space-y-2'>
                 {transactions.map((item) => {
@@ -45,21 +45,21 @@ function TransactionList({ transactions, setTransactions, setEditingId, categori
                     const toAccount = accounts.find((acc) => acc.id === Number(item.to_account_id))
                     const Icon = categoryIcons[category?.category_name] || Receipt
                     return (
-                        <div key={item.id} className='flex items-center gap-3 py-2 border-b border-slate-700/50'>
+                        <div key={item.id} className='flex items-center gap-3 py-2 border-b border-[var(--color-border)]'>
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center
                                  ${item.transaction_type === 'income' ? 'bg-emerald-500/20' :
                                     item.transaction_type === 'transfer' ? 'bg-amber-500/20' : 'bg-rose-500/20'}`}>
                                 <Icon size={18} className={`${item.transaction_type === 'income' ? 'text-emerald-400' : item.transaction_type === 'transfer' ? 'text-amber-400' : 'text-rose-400'}`} />
                             </div>
                             <div className='flex-1 text-left'>
-                                <div className='text-slate-200'>
+                                <div className='text-[var(--color-text-secondary)]'>
                                     {item.transaction_type === 'transfer'
                                         ? `${account?.account_name} → ${toAccount?.account_name}`
                                         : (category ? category.category_name : '-')
 
                                     }
                                 </div>
-                                <div className='text-slate-400 text-xs mt-1'>
+                                <div className='text-[var(--color-text-muted)] text-xs mt-1'>
                                     {account ? account.account_name : '-'} · {item.occurred_at ? item.occurred_at.slice(0, 10) : '-'}
                                     {item.note && ` · ${item.note}`}
                                 </div>
@@ -68,12 +68,12 @@ function TransactionList({ transactions, setTransactions, setEditingId, categori
                                 {item.transaction_type === 'income' ? '+' : item.transaction_type === 'transfer' ? '' : '-'}฿{item.amount.toLocaleString()}
                             </div>
                             <div>
-                                <button onClick={() => setEditingId(item.id)} className='text-slate-400 hover:text-emerald-400 mr-3'>
+                                <button onClick={() => setEditingId(item.id)} className='text-[var(--color-text-muted)] hover:text-emerald-400 mr-3'>
                                     <Pencil size={18} />
                                 </button>
                                 <button onClick={() => handleDelete(item.id)} 
                                 disabled={deletingId === item.id}
-                                className='text-slate-400 hover:text-rose-400 disabled:opacity-50 disabled:cursor-not-allowed'>
+                                className='text-[var(--color-text-muted)] hover:text-rose-400 disabled:opacity-50 disabled:cursor-not-allowed'>
                                     <Trash2 size={18} />
                                 </button>
                             </div>
@@ -81,9 +81,9 @@ function TransactionList({ transactions, setTransactions, setEditingId, categori
                     )
                 })}
                 <div className=''>
-                    <button onClick={() => setPage(page - 1)} className='text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed mr-3' disabled={page === 1}>ก่อนหน้า</button>
+                    <button onClick={() => setPage(page - 1)} className='text-[var(--color-text-secondary)] disabled:opacity-50 disabled:cursor-not-allowed mr-3' disabled={page === 1}>ก่อนหน้า</button>
                     <span>หน้า {page} / {totalPage} </span>
-                    <button onClick={() => setPage(page + 1)} className='text-slate-300 disabled:opacity-50 disabled:cursor-not-allowed' disabled={page === totalPage}>ถัดไป</button>
+                    <button onClick={() => setPage(page + 1)} className='text-[var(--color-text-secondary)] disabled:opacity-50 disabled:cursor-not-allowed' disabled={page === totalPage}>ถัดไป</button>
                 </div>
             </div>
         </div >

@@ -25,19 +25,19 @@ function AccountBalance({ accounts }) {
         <>
             <div>
                 <div>
-                    <h3 className='text-slate-100 mb-3'>คงเหลือแต่ละบัญชี</h3>
+                    <h3 className='text-[var(--color-text-primary)] mb-3'>คงเหลือแต่ละบัญชี</h3>
                 </div>
                 <div className='grid grid-cols-3 gap-3'>
                     {balance.map((b) => {
                         const account = accounts.find((acc) => acc.id === (b.account_id))
                         const Icon = accountIcons[account?.account_name] || Wallet
                         return (
-                            <div key={b.account_id} className='bg-slate-700 rounded-lg p-3 mb-3'>
-                                <div className='flex items-center gap-2 mb-2'>
+                            <div key={b.account_id} className='bg-[var(--color-bg-input)] rounded-lg p-3 mb-3 transition-colors border-t-3 border-sky-500 shadow-md'>
+                                <div className='flex items-center gap-2 mb-2 '>
                                     <div className='w-8 h-8 rounded-full flex items-center justify-center bg-sky-500/20'>
                                         <Icon size={16} className='text-sky-400' />
                                     </div>
-                                    <p className='text-slate-400 text-xs'>{account?.account_name}</p>
+                                    <p className='text-[var(--color-text-muted)] text-xs'>{account?.account_name}</p>
 
                                 </div>
                                 <p className={`text-xl font-bold ${b.balance >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>

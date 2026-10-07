@@ -29,6 +29,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
     const filteredCategories = categories.filter((cat) => cat.category_type === type)
     const [errors, setErrors] = useState({})
     const [submitting, setSubmitting] = useState(false)
+    const ringColor = editingId === null ? 'focus:ring-emerald-500' : 'focus:ring-amber-500'
 
     function handleAdd() {
 
@@ -301,7 +302,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder='จำนวน'
-                        className='w-full bg-slate-700 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500'
+                        className={`w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 ${ringColor}`}
                     />
                     {errors.amount && <p className='text-rose-400 text-xs mt-1'>{errors.amount}</p>}
                 </div>
@@ -311,7 +312,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
                     <select
                         value={type}
                         onChange={(e) => setType(e.target.value)}
-                        className='w-full bg-slate-700 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500'
+                        className={`w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 ${ringColor}`}
                     >
                         <option value='expense'>รายจ่าย</option>
                         <option value='income'>รายรับ</option>
@@ -325,7 +326,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
                         <select
                             value={categoryId}
                             onChange={(e) => setCategoryId(e.target.value)}
-                            className='w-full bg-slate-700 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500'
+                            className={`w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 ${ringColor}`}
                         >
                             <option value=''>เลือกหมวดหมู่</option>
                             {filteredCategories.map((cat) => (
@@ -340,7 +341,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
                     <select
                         value={accountId}
                         onChange={(e) => setAccountId(e.target.value)}
-                        className='w-full bg-slate-700 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500'
+                        className={`w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 ${ringColor}`}
                     >
                         <option value=''>
                             {type === 'transfer' ? 'เลือกบัญชีต้นทาง' : 'เลือกบัญชี'}
@@ -358,7 +359,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
                         <select
                             value={toAccountId}
                             onChange={(e) => setToAccountId(e.target.value)}
-                            className='w-full bg-slate-700 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500'
+                            className={`w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 ${ringColor}`}
                         >
                             <option value=''>เลือกบัญชีปลายทาง</option>
                             {accounts.map((acc) => (
@@ -375,7 +376,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
                         type='date'
                         value={occurredAt}
                         onChange={(e) => setOccurredAt(e.target.value)}
-                        className='w-full bg-slate-700 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500'
+                        className={`w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 ${ringColor}`}
                     />
                     {errors.occurredAt && <p className='text-rose-400 text-xs mt-1'>{errors.occurredAt}</p>}
                 </div>
@@ -388,7 +389,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     placeholder='โน้ต (ไม่บังคับ)'
-                    className='w-full bg-slate-700 text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-emerald-500'
+                    className={`w-full bg-[var(--color-bg-input)] text-[var(--color-text-primary)] rounded-lg px-3 py-2 outline-none focus:ring-2 ${ringColor}`}
                 />
             </div>
 
@@ -409,7 +410,7 @@ function TransactionForm({ transactions, setTransactions, editingId, setEditingI
             {editingId !== null && (
                 <button
                     onClick={handleCancel}
-                    className='w-full bg-slate-600 hover:bg-slate-500 text-white rounded-lg py-2 mt-2 transition-colors'
+                    className='w-full bg-[var(--color-bg-cancel)] hover:bg-[var(--color-bg-cancel-hover)] text-[var(--color-text-primary)] rounded-lg py-2 mt-2 transition-colors'
                 >
                     ยกเลิก
                 </button>

@@ -1,5 +1,32 @@
 @import "tailwindcss";
 
+/* ===== Theme Variables ===== */
+:root {
+  --color-bg-page: #f8fafc;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #f1f5f9;
+  --color-bg-cancel: #cbd5e1;
+  --color-bg-cancel-hover: #94a3b8;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-tooltip-bg: #ffffff;
+}
+
+.dark {
+  --color-bg-page: #0f172a;
+  --color-bg-card: #1e293b;
+  --color-bg-input: #334155;
+  --color-bg-cancel: #475569;
+  --color-bg-cancel-hover: #64748b;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(51, 65, 85, 0.5);
+  --color-tooltip-bg: #1e293b;
+}
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -72,7 +99,7 @@ h1,
 h2 {
   font-family: var(--heading);
   font-weight: 500;
-  color: var(--text-h);
+  color: var(--color-text-primary);
 }
 
 h1 {
