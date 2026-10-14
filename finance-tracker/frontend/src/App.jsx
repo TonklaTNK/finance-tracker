@@ -169,12 +169,17 @@ function App() {
   // )
 
   return (
-    <div className='min-h-screen bg-[var(--color-bg-page)] text-[var(--color-text-primary)] transition-colors'>
-      <div className='max-w-5xl mx-auto px-4 py-6'>
+    <div className='max-w-5xl mx-auto bg-[var(--color-bg-card)] rounded-xl shadow-lg border border-[var(--color-border)] my-1'>
+      <div className='max-w-5xl mx-auto px-5 py-5'>
 
         <div className='flex items-center justify-between mb-6'>
           <h2 className='bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent'>Personal Finance Tracker</h2>
           <ThemeToggle theme={theme} setTheme={setTheme} />
+        </div>
+
+        {/* ===== กราฟ (เต็มจอ ล่างสุด) ===== */}
+        <div className='mt-6'>
+          <SummaryChart theme={theme} />
         </div>
 
         {/* ===== Summary + Balance (เต็มจอ) ===== */}
@@ -185,8 +190,10 @@ function App() {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
 
           {/* ===== ซ้าย: ฟอร์ม ===== */}
-          <div className={`bg-[var(--color-bg-card)] rounded-xl p-4 h-fit transition-colors border-t-3 shadow-md
-    ${editingId === null ? 'border-emerald-500' : 'border-amber-500'}`}>
+          {/* <div className={`bg-[var(--color-bg-card)] rounded-xl p-4 h-fit transition-colors border-t-3 shadow-md
+    ${editingId === null ? 'border-emerald-500' : 'border-amber-500'}`}> */}
+      <div className={`bg-[var(--color-bg-card)] rounded-xl p-4 h-fit transition-colors border-2 border-[var(--color-border)] border-t-3 shadow-md
+    ${editingId === null ? 'border-t-emerald-500' : 'border-t-amber-500'}`}>
             <h2 className='text-lg font-semibold text-[var(--color-text-primary)] mb-4'>
               {editingId === null ? 'เพิ่มรายการ' : 'แก้ไขรายการ'}
             </h2>
@@ -202,7 +209,7 @@ function App() {
           </div>
 
           {/* ===== ขวา: filter + list ===== */}
-          <div className='bg-[var(--color-bg-card)] rounded-xl p-4 border-t-3 border-sky-500 shadow-md transition-colors'>
+          <div className='bg-[var(--color-bg-card)] rounded-xl p-4 border-2 border-[var(--color-border)] border-t-3 border-t-sky-500 shadow-md transition-colors'>
             {/* filter */}
             <div className='flex gap-2 mb-4 '>
               <select value={filterType} onChange={(e) => setFilterType(e.target.value)}
@@ -256,10 +263,7 @@ function App() {
           </div>
         </div>
 
-        {/* ===== กราฟ (เต็มจอ ล่างสุด) ===== */}
-        <div className='mt-6'>
-          <SummaryChart theme={theme} />
-        </div>
+        
 
       </div>
     </div>

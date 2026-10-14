@@ -16,7 +16,8 @@ function SummaryChart({ theme }) {
     }, [])
 
     return (
-        <div className='bg-[var(--color-bg-card)] rounded-xl p-4 mt-6 border-t-3 border-teal-500 shadow-md transition-colors'>
+        // <div className='bg-[var(--color-bg-card)] rounded-xl p-4 mt-6 border-t-3 border-teal-500 shadow-md transition-colors'>
+        <div className='bg-[var(--color-bg-card)] rounded-xl p-4 border-2 border-[var(--color-border)] border-t-3 border-t-teal-500 shadow-md transition-colors'>
             <h2 className='text-lg font-semibold text-[var(--color-text-primary)] mb-4'>สรุปรายเดือน</h2>
             <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={summary}>
